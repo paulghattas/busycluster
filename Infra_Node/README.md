@@ -1,9 +1,12 @@
 # OpenShift Infrastructure Nodes
 
 ## Get the machine set
-`oc get machineset -n openshift-machine-api`
-`oc get machineset <pick one worker> -o yaml > worker-original.yaml`
 
+```
+oc get machineset -n openshift-machine-api
+oc get machineset <pick one worker> -o yaml > worker-original.yaml
+
+```
 ## Sanitize the outputs!
 add some fancy sed command or automation to do these things:
 - Change the name of the machineSet where needed from worker to infra
