@@ -1,4 +1,4 @@
-COUCHBASE AUTONOMOUS OPERATOR
+#COUCHBASE AUTONOMOUS OPERATOR
 
 The Couchbase Autonomous Operator provides a native integration of Couchbase
 Server with Kubernetes platforms. It enables you to automate the management of
@@ -8,7 +8,7 @@ Couchbase cluster, it lets you focus on the desired configuration and not worry
 about the details of manual deployment and lifecycle management.
 
 
-INSTALLATION
+#INSTALLATION
 
 This package contains the command-line tools and configuration files that you
 will use to automatically download and deploy the Operator into a Kubernetes
@@ -19,7 +19,7 @@ See the documentation for installation instructions:
 https://developer.couchbase.com/documentation/server/current/operator/overview.html
 
 
-ABOUT COUCHBASE SERVER
+#ABOUT COUCHBASE SERVER
 
 Couchbase Server is an open source, distributed NoSQL document database.
 Couchbase Server enables developers to build applications with agility by
@@ -39,14 +39,14 @@ Its memory-centric architecture is designed to provide low-latency data
 management for large-scale interactive web, mobile, and IoT applications.
 
 
-DOCUMENTATION
+#DOCUMENTATION
 
 The online documentation library is available at:
 
 http://developer.couchbase.com/documentation-archive
 
 
-THIRD-PARTY LICENSE INFORMATION
+#THIRD-PARTY LICENSE INFORMATION
 
 You can find the licenses for all of the third-party components that are
 included in Couchbase products at:
