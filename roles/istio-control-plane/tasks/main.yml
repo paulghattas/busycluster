@@ -1,0 +1,83 @@
+- name: check for istio-operator project
+  shell: "oc get project istio-operator"
+  register: operator_project_exists
+  failed_when: operator_project_exists.rc >= 2
+
+# if project doesn't exist (rc=1) create it
+- name: create istio-operator project if it doesn't exist
+  shell: "oc adm new-project istio-operator"
+  when: 
+    - operator_project_exists.rc == 1
+
+- name: check for istio CRD before proceeding
+  shell: "oc get crd/installations.istio.openshift.com"
+  register: istio_crd_exists
+  failed_when: istio_crd_exists.rc >= 2
+
+# if the CRD exists we should check the status of the operator itself before continuing
+# for now we just assume we should process the template if there's no CRD
+
+# use process piped to create because of https://bugzilla.redhat.com/show_bug.cgi?id=1671528
+- name: process the community operator template
+  shell: "oc process -n istio-operator -f https://raw.githubusercontent.com/Maistra/openshift-ansible/maistra-0.10/istio/istio_community_operator_template.yaml -p OPENSHIFT_ISTIO_MASTER_PUBLIC_URL={{ api_url }} | oc create -n istio-operator -f -"
+  when:
+    - istio_crd_exists.rc == 1
+
+- name: wait for istio operator pod to be ready
+  shell: "oc get deployment -n istio-operator istio-operator -o jsonpath='{.status.readyReplicas}'"
+  register: istio_deployment_status
+  until: "istio_deployment_status.stdout | int >= 1"
+  retries: 5
+  delay: 30
+
+- name: check for istio-system project
+  shell: "oc get project istio-system"
+  register: system_project_exists
+  failed_when: system_project_exists.rc >= 2
+
+# if project doesn't exist (rc=1) create it
+- name: create istio-system project if it doesn't exist
+  shell: "oc adm new-project istio-system"
+  when: 
+    - system_project_exists.rc == 1
+
+- name: check for istio control plane CR
+  shell: "oc get installation.istio.openshift.com/istio-installation -n istio-operator"
+  register: istio_cr_exists
+  failed_when: istio_cr_exists.rc >= 2
+
+- name: create istio control plane CR
+  shell: "oc create -f https://raw.githubusercontent.com/Maistra/openshift-ansible/maistra-0.7/istio/cr-minimal.yaml"
+  when:
+    - istio_cr_exists.rc == 1
+
+- name: wait up to 11 minutes for installer pod to be completed
+  shell: "oc get `oc get pod -n istio-system -o name | grep ansible` -o jsonpath='{.status.phase}'"
+  register: installer_pod_status
+  until: installer_pod_status.stdout == "Succeeded"
+  retries: 10
+  delay: 60
+
+- name: wait for the elasticsearch statefulset to exist
+  shell: "oc get statefulset elasticsearch -n istio-system"
+  register: elasticsearch_set_status
+  until: elasticsearch_set_status.rc == 0
+  retries: 5
+  delay: 30
+
+- name: patch the elasticsearch statefulset to add the tuned label for the sysctl
+  shell: "oc patch statefulset elasticsearch -n istio-system -p '{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"tuned.openshift.io/elasticsearch\": \"\"}}}}}'"
+
+# nuclear option which is easier than trying to find the current elasticsearch pod
+- name: delete all control plane pods to force redeploy
+  shell: "oc delete pod --all -n istio-system"
+  when:
+    - istio_cr_exists.rc == 1
+
+# jaeger is the last thing to come up because it depends on ES working
+- name: wait up to 11 minutes for jaeger-collector to be healthy
+  shell: "oc get deployment jaeger-collector -o jsonpath='{.status.readyReplicas}'"
+  register: jaeger_collector_ready
+  until: "jaeger_collector_ready.stdout | int == 1"
+  retries: 11
+  delay: 60
