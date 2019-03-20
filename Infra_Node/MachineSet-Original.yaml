@@ -1,0 +1,75 @@
+apiVersion: machine.openshift.io/v1beta1
+kind: MachineSet
+metadata:
+  creationTimestamp: 2019-03-18T13:09:29Z
+  generation: 1
+  labels:
+    machine.openshift.io/cluster-api-cluster: pg13-wvrz8
+    machine.openshift.io/cluster-api-machine-role: worker
+    machine.openshift.io/cluster-api-machine-type: worker
+  name: pg13-wvrz8-worker-us-east-2a
+  namespace: openshift-machine-api
+  resourceVersion: "16120"
+  selfLink: /apis/machine.openshift.io/v1beta1/namespaces/openshift-machine-api/machinesets/pg13-wvrz8-worker-us-east-2a
+  uid: 102f3ad1-497f-11e9-9306-0a4906237526
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      machine.openshift.io/cluster-api-cluster: pg13-wvrz8
+      machine.openshift.io/cluster-api-machineset: pg13-wvrz8-worker-us-east-2a
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        machine.openshift.io/cluster-api-cluster: pg13-wvrz8
+        machine.openshift.io/cluster-api-machine-role: worker
+        machine.openshift.io/cluster-api-machine-type: worker
+        machine.openshift.io/cluster-api-machineset: pg13-wvrz8-worker-us-east-2a
+    spec:
+      metadata:
+        creationTimestamp: null
+      providerSpec:
+        value:
+          ami:
+            id: ami-0a0438a5e62dc0f9f
+          apiVersion: awsproviderconfig.openshift.io/v1beta1
+          blockDevices:
+          - ebs:
+              iops: 0
+              volumeSize: 120
+              volumeType: gp2
+          deviceIndex: 0
+          iamInstanceProfile:
+            id: pg13-wvrz8-worker-profile
+          instanceType: m4.large
+          kind: AWSMachineProviderConfig
+          metadata:
+            creationTimestamp: null
+          placement:
+            availabilityZone: us-east-2a
+            region: us-east-2
+          publicIp: null
+          securityGroups:
+          - filters:
+            - name: tag:Name
+              values:
+              - pg13-wvrz8-worker-sg
+          subnet:
+            filters:
+            - name: tag:Name
+              values:
+              - pg13-wvrz8-private-us-east-2a
+          tags:
+          - name: kubernetes.io/cluster/pg13-wvrz8
+            value: owned
+          userDataSecret:
+            name: worker-user-data
+      versions:
+        kubelet: ""
+status:
+  availableReplicas: 1
+  fullyLabeledReplicas: 1
+  observedGeneration: 1
+  readyReplicas: 1
+  replicas: 1

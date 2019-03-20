@@ -1,0 +1,15 @@
+
+oc create secret docker-registry rh-catalog --docker-server=registry.connect.redhat.com --docker-username=pghattas@redhat.com --docker-password=Gatuso.9 --docker-email=pghattas@redhat.com
+
+oc create serviceaccount couchbase-operator --namespace operator-couchbase-namespace
+
+oc secrets add serviceaccount/couchbase-operator secrets/rh-catalog --for=pull
+oc secrets add serviceaccount/default secrets/rh-catalog --for=pull
+
+oc create clusterrolebinding couchbase-operator-rolebinding --clusterrole couchbase-operator --serviceaccount operator-couchbase-namespace:couchbase-operator
+
+oc create rolebinding couchbasecluster-kube:admin-rolebinding --clusterrole couchbasecluster --user kube:admin --namespace operator-couchbase-namespace
+
+oc create clusterrolebinding couchbasecluster-developer-rolebinding --clusterrole couchbasecluster --user kube:admin 
+
+oc create -f operator.yaml -n operator-couchbase-namespace
