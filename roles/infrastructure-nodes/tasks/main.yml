@@ -1,0 +1,16 @@
+- name: register list of machinesets
+  shell: "oc get machineset -n openshift-machine-api"
+  register: infra_machineset_exists
+
+# stdout will have the word infra if there's already an infra machineset
+# if there is one, we don't create any
+
+- name: create infra machineset(s)
+  script: files/infra.sh {{ item }}
+  loop: "{{ azs }}"
+  when: '"infra" not in infra_machineset_exists.stdout'
+
+# move router (doesn't work yet)
+
+- name: move monitoring onto infra nodes
+  shell: "oc create -f https://raw.githubusercontent.com/openshift/training/master/assets/cluster-monitoring-configmap.yaml"

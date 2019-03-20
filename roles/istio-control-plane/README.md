@@ -1,0 +1,1 @@
+This role requires that a parameter/variable `api_url` point to the OpenShift API URL.
