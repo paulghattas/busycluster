@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Evnvironment specific variables
 ADMIN_ACCOUNT=system:admin
 USER_ACCOUNT=developer
