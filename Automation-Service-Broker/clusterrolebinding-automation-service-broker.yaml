@@ -1,0 +1,12 @@
+﻿kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: ansible-service-broker
+subjects:
+  - kind: ServiceAccount
+    name: ansible-service-broker
+    namespace: automation-broker
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: admin
