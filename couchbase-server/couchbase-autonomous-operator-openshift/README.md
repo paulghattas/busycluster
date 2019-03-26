@@ -9,10 +9,10 @@
 
 ## Create an imagePullSecret for the RH Container Catalog
 
-`oc create secret docker-registry rh-catalog --docker-server=registry.connect.redhat.com --docker-username=pghattas@redhat.com --docker-password=Gatuso.9 --docker-email=pghattas@redhat.com`
 
-oc create secret docker-registry rh-catalog --docker-server=registry.connect.redhat.com \
+``` oc create secret docker-registry rh-catalog --docker-server=registry.connect.redhat.com \
   --docker-username=<rhel-username> --docker-password=<rhel-password> --docker-email=<docker-email>
+```
 
 ## Create a Role and Service Account for the Operator
 
@@ -68,8 +68,8 @@ This command downloads the Operator Docker image and creates a deployment which 
 
 ## Uninstalling the operator
 
-oc delete deployment couchbase-operator
-oc delete crd couchbaseclusters.couchbase.com
+`oc delete deployment couchbase-operator`
+`oc delete crd couchbaseclusters.couchbase.com`
 
 ## To deploy a Couchbase Server cluter using the Operator - all you have to do is create a Couchbase cluster configuration file that describes what you want the cluster to look like and then push the configuration file.
 
