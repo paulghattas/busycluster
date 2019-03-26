@@ -10,6 +10,4 @@ spec:
   source: installed-community-openshift
   sourceNamespace: openshift
   startingCSV: templateservicebrokeroperator.v0.2.0
-  
-# https://coreos.slack.com/archives/CDJGTTR29/p1551802799003700
 
