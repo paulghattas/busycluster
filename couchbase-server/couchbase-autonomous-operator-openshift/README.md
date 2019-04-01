@@ -18,7 +18,7 @@
 
 ` oc create -f cluster-role-sa.yaml`
 
-## Create a service account and then assing the cluster role to that service account using a role binding:
+## Create a service account and then adding the cluster role to that service account using a role binding:
 
 `oc create serviceaccount couchbase-operator --namespace operator-couchbase-namespace`
 
@@ -28,7 +28,7 @@
 
 `oc secrets add serviceaccount/default secrets/rh-catalog --for=pull`  
 
-## Assing cluster role to service account
+## Adding cluster role to service account
 
 `oc create clusterrolebinding couchbase-operator-rolebinding --clusterrole couchbase-operator --serviceaccount operator-couchbase-namespace:couchbase-operator`
 
