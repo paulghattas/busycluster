@@ -1,0 +1,16 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  labels:
+    csc-owner-name: installed-certified-couchbase-operator
+    csc-owner-namespace: openshift-marketplace
+  name: couchbase-enterprise
+  namespace: couchbase-operator
+
+spec:
+  channel: preview
+  installPlanApproval: Automatic
+  name: couchbase-enterprise
+  source: installed-certified-couchbase-operator
+  sourceNamespace: couchbase-operator
+  startingCSV: couchbase-operator.v1.1.0
