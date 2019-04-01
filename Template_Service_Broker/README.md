@@ -25,5 +25,19 @@ The template service broker gives the service catalog visibility into the defaul
 
 You will find your installed "Template Service Broker Operator" under "Installed Operators" under Catalog.
 
-## Create the TemplateServiceBroker
+### Create the TemplateServiceBroker
 `oc create -f templateservicebroker-template-service-broker.yaml -n openshift`
+
+### Check 
+
+Template service broker Pod status
+
+From the Workloads → Pods page for the template-service-broker project, verify that the Pod that starts with apiserver- has a status of Running and readiness of Ready.
+
+Cluster service broker status
+
+From the Catalog → Broker Management → Service Brokers page, verify that the template-service-broker service broker has a status of Ready.
+
+Service catalog controller manager Pod logs
+
+From the Workloads → Pods page for the openshift-service-catalog-controller-manager project, review the logs for each of the Pods and verify that you see a log entry with the message Successfully fetched catalog entries from broker.

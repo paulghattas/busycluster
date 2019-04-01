@@ -26,3 +26,21 @@ Next, you must start the OpenShift Ansible Broker in order to access the service
 
 ## Create the AnsibleServiceBroker
 `oc create -f ansibleservicebroker-ansible-service-broker.yaml -n ansible-service-broker`
+
+### Check
+
+OpenShift Ansible Broker Pod status
+
+From the Workloads → Pods page for the ansible-service-broker project,
+
+verify that the Pod that starts with asb- has a status of Running and
+
+readiness of Ready.
+
+Cluster service broker status
+
+From the Catalog → Broker Management → Service Brokers page, verify that the ansible-service-broker service broker has a status of Ready.
+
+Service catalog controller manager Pod logs
+
+From the Workloads → Pods page for the openshift-service-catalog-controller-manager project, review the logs for each of the Pods and verify that you see a log entry with the message Successfully fetched catalog entries from broker.
