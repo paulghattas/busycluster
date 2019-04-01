@@ -5,7 +5,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: ansible-service-broker
-    namespace: automation-broker
+    namespace: ansible-service-broker
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole

@@ -1,14 +1,17 @@
 ﻿apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
+  labels:
+    csc-owner-name: installed-community-ansible-service-broker
+    csc-owner-namespace: openshift-marketplace
   name: automationbroker
-  namespace: automation-broker
+  namespace: ansible-service-broker
 
 spec:
   channel: alpha
   installPlanApproval: Automatic
   name: automationbroker
   source: installed-community-automation-broker
-  sourceNamespace: automation-broker
+  sourceNamespace: ansible-service-broker
   startingCSV: automationbrokeroperator.v0.2.0
 

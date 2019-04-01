@@ -1,0 +1,8 @@
+﻿apiVersion: osb.openshift.io/v1alpha1
+kind: AutomationBroker
+metadata:
+  name: ansible-service-broker
+  namespace: ansible-service-broker
+spec:
+  createBrokerNamespace: 'false'
+  waitForBroker: 'false'

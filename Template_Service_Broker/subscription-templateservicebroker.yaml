@@ -1,6 +1,9 @@
 ﻿apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
+  labels:
+    csc-owner-name: installed-community-openshift
+    csc-owner-namespace: openshift-marketplace
   name: templateservicebroker
   namespace: openshift
 spec:
