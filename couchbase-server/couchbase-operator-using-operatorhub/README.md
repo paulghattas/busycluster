@@ -24,6 +24,3 @@ Make sure this matches the name of the project. • authSecret
 This is the secret we created. You don’t need to modify this if you’re using the same secret that is in the example. 
 
 `oc create -f couchbasecluster.yaml -n couchbase-operator`
-
-
-

@@ -4,6 +4,8 @@ metadata:
   name: couchbase-operator-creds
   namespace: couchbase-operator
 type: Opaque
+
+## PASSWORD NEEDS TO BE ATLEAST 6 characters long
 stringData:
-  username: pg
-  password: pg
+  username: pg15pg15
+  password: pg15pg15
