@@ -16,7 +16,7 @@ The template service broker gives the service catalog visibility into the defaul
 `oc create -f ServiceCatalogControllerManager.yaml `
 
 ### Create Subscription for the TemplateServiceBroker
-`oc create -f subcription-templateservicebroker.yaml -n openshift`
+`oc create -f subscription-templateservicebroker.yaml -n openshift`
 
 ### Create the TemplateServiceBroker
 `oc create -f templateservicebroker-template-service-broker.yaml -n openshift`
