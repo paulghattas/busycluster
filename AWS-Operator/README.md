@@ -37,7 +37,7 @@ aws cloudformation create-stack \
 
 The cloudformation function should create the iam role and policy correctly, assuming the iam role `aws-service-operator` doesn't already exist in your AWS account.  If this role exists already then you should just need to assume a policy to that role.
 
-**YOU DO NOT NEED TO RUN THE COMMAND BELOW IF THE CLOUDFORMATION STACK RAN CORRECTLY**
+**YOU DO NOT NEED TO RUN THE COMMAND BELOW IF THE CLOUDFORMATION STACK RAN CORRECTLY AND YOU DID NOT ALREADY HAVE THE IAM ROLE `aws-service-operator`**
 
 Before you assume a new policy you need to edit the `kube2iam.json` file to fill in your K8S_WORKER_NODE_IAM_ROLE
 
